@@ -41,12 +41,11 @@ body {
     <div class="field" style="grid-column: 1 / -1;">
       <label>O que você está precificando?</label>
 
-      <div class="input-wrap">
+      <div class="input-wrap descricao-wrap">
         <input
           type="text"
           id="descricaoPeca"
           placeholder="Ex: Suporte para controle Xbox"
-          style="padding-left:12px;"
         >
       </div>
     </div>
@@ -73,7 +72,7 @@ body {
     white-space: nowrap; flex-shrink: 0; user-select: none;
     line-height: 1;
   }
-  .input-wrap input[type="number"] {
+  .input-wrap input {
     flex: 1; min-width: 0;
     padding: 10px 12px 10px 0;
     border: none; outline: none;
@@ -82,6 +81,18 @@ body {
     font-family: 'Inter', sans-serif;
     -moz-appearance: textfield;
   }
+
+.descricao-wrap{
+  width:100%;
+}
+
+.descricao-wrap input{
+  width:100%;
+  padding:12px;
+  font-size:14px;
+  color:#1A1A1A;
+}  
+
 
 .input-wrap input::placeholder{
   color: #9AA4B2;
@@ -245,8 +256,47 @@ body {
 
 <div class="app-body">
 
+    <div class="section-card">
+    <div class="section-header">
+      <div class="dot"></div>
+      <h2>Descrição da peça</h2>
+    </div>
+
+    <div class="section-body">
+
+      <div class="field" style="grid-column: 1 / -1;">
+        <label>O que você está precificando?</label>
+
+        <div
+          class="input-wrap"
+          style="
+            width:100%;
+            display:flex;
+          "
+        >
+          <input
+            type="text"
+            id="descricaoPeca"
+            placeholder="Ex: Suporte para controle Xbox"
+            style="
+              width:100%;
+              padding:12px;
+              color:#1A1A1A;
+            "
+          >
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  
   <div class="section-card">
-    <div class="section-header"><div class="dot"></div><h2>Custos de Material</h2></div>
+    <div class="section-header">
+      <div class="dot">
+        </div>
+        <h2>Custos de Material</h2>
+      </div>
     <div class="section-body">
       <div class="field">
         <label>Preço do rolo de filamento <span class="unit">(R$)</span></label>
