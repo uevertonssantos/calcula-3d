@@ -154,18 +154,18 @@
               <div class="field">
                 <label>
                   Tempo de impressão
-                  <span class="unit">(horas)</span>
+                  <span class="unit">(minutos)</span>
                   <span class="required">*</span>
                 </label>
 
                 <div class="input-wrap">
-                  <span class="prefix">h</span>
+                  <span class="prefix">min</span>
 
                   <input
                     type="number"
                     id="tempoImpressao"
                     value=""
-                    placeholder="Ex: 4.5"
+                    placeholder="Ex: 330"
                     min="0"
                     step="0.1"
                     oninput="calcular()"
@@ -274,6 +274,9 @@
               </div>
               <button class="btn-calc" onclick="limparCampos()">
                 ↻ Recalcular
+              </button>
+              <button class="btn-history" onclick="adicionarAoHistorico()">
+                + Salvar no histórico
               </button>
             </div>
           </div>

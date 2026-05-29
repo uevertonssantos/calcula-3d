@@ -25,11 +25,7 @@ function calcular() {
   const divisor = 1 - (margemLucro / 100);
   const precoFinal = divisor > 0 ? subtotal / divisor : subtotal * (1 + margemLucro / 100);
 
-salvarHistorico(
-  precoFinal,
-  custoBase,
-  tempoHoras
-);
+
 
 document.getElementById('r-filamento').textContent  = fmt(custoFilamento);
 document.getElementById('r-energia').textContent     = fmt(custoEnergia);
@@ -71,7 +67,7 @@ function limparCampos(){
     'Lucro de 0% aplicado';
 }
 
-function salvarHistorico(precoFinal, custoBase, tempoHoras){
+function salvarHistorico(precoFinal, custoBase, tempoMinutos){
 
   const lista =
     document.getElementById('historico-lista');
@@ -104,8 +100,8 @@ function salvarHistorico(precoFinal, custoBase, tempoHoras){
     <div class="historico-grid">
 
       <div class="historico-box">
-        <span>Horas totais</span>
-        <strong>${tempoHoras.toFixed(1)}h</strong>
+        <span>Tempo de impressão</span>
+        <strong>${tempoMinutos.toFixed(0)} min</strong>
       </div>
 
       <div class="historico-box">
@@ -129,6 +125,23 @@ function salvarHistorico(precoFinal, custoBase, tempoHoras){
   if(itens.length > 5){
     itens[itens.length - 1].remove();
   }
+}
+
+function adicionarAoHistorico() {
+  const precoFinalTexto = document.getElementById('r-preco-final').textContent;
+  const custoBaseTexto = document.getElementById('r-custobase').textContent;
+  const tempoMinutos = get('tempoImpressao');
+  const tempoHoras = tempoMinutos / 60;
+
+  const precoFinal = Number(
+    precoFinalTexto.replace('R$', '').replace('.', '').replace(',', '.')
+  );
+
+  const custoBase = Number(
+    custoBaseTexto.replace('R$', '').replace('.', '').replace(',', '.')
+  );
+
+  salvarHistorico(precoFinal, custoBase, tempoMinutos);
 }
 
 function abrirConfiguracoes(){
