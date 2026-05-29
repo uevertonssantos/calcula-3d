@@ -6,233 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora de Custos de Impressão 3D</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #F3F6FA; --card: #FFFFFF; --primary: #0D438A; --secondary: #87CFEF;
-    --muted: #7B807C; --card-bg2: #F0F5FA; --border: rgba(123,128,124,0.25);
-  }
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: #1A1A1A;
-  min-height: 100vh;
-
-  .header { background: var(--primary); padding: 28px 32px 24px; display: flex; align-items: center; border-radius: 0 0 22px 22px; }
-  .header h1 { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-  .header p { color: rgba(255,255,255,0.65); font-size: 13px; margin-top: 2px; }
-
-.logo-topo{
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-  .app-body { padding: 32px; display: flex; flex-direction: column; gap: 20px; }
-
-<div class="section-card">
-  <div class="section-header">
-    <div class="dot"></div>
-    <h2>Descrição da peça</h2>
-  </div>
-
-  <div class="section-body">
-
-    <div class="field" style="grid-column: 1 / -1;">
-      <label>O que você está precificando?</label>
-
-      <div class="input-wrap descricao-wrap">
-        <input
-          type="text"
-          id="descricaoPeca"
-          placeholder="Ex: Suporte para controle Xbox"
-        >
-      </div>
-    </div>
-
-  </div>
-</div>
-  .section-card { background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
-  .section-header { padding: 14px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
-  .section-header .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
-  .section-header h2 { font-size: 13px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.8px; }
-  .section-body { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 12px; font-weight: 500; color: var(--muted); }
-  .field label span.unit { color: var(--secondary); font-weight: 600; }
-
-  /* INPUT COM PREFIXO — solução robusta */
-  .input-wrap { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 10px; background: var(--card-bg2); overflow: hidden; transition: border-color 0.18s, box-shadow 0.18s; }
-  .input-wrap:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13,67,138,0.12); background: #fff; }
-  .input-wrap:hover { border-color: var(--secondary); }
-  .input-wrap .prefix {
-    padding: 0 8px 0 12px;
-    font-size: 13px; font-weight: 500; color: var(--muted);
-    white-space: nowrap; flex-shrink: 0; user-select: none;
-    line-height: 1;
-  }
-  .input-wrap input {
-    flex: 1; min-width: 0;
-    padding: 10px 12px 10px 0;
-    border: none; outline: none;
-    font-size: 14px; font-weight: 500; color: #1A1A1A;
-    background: transparent;
-    font-family: 'Inter', sans-serif;
-    -moz-appearance: textfield;
-  }
-
-.descricao-wrap{
-  width:100%;
-}
-
-.descricao-wrap input{
-  width:100%;
-  padding:12px;
-  font-size:14px;
-  color:#1A1A1A;
-}  
-
-
-.input-wrap input::placeholder{
-  color: #9AA4B2;
-}
-
-.container-app{
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .field .hint { font-size: 11px; color: var(--muted); }
-
-  .results-card { background: var(--primary); border-radius: 16px; overflow: hidden; border: 1px solid rgba(135,207,239,0.2); }
-
-.results-header {
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.badge{
-  white-space: nowrap;
-}
-
-  .results-header h2 { font-size: 14px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
-  .results-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-
-  .result-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.06); border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); }
-  .result-row .label { font-size: 13px; color: rgba(255,255,255,0.72); font-weight: 400; display: flex; align-items: center; gap: 8px; }
-  .result-row .label .dot-sm { width: 7px; height: 7px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
-  .result-row .value { font-size: 14px; font-weight: 600; color: #fff; }
-
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 4px 0; }
-
-  .result-row.subtotal { background: rgba(135,207,239,0.12); border-color: rgba(135,207,239,0.2); }
-  .result-row.subtotal .label { color: var(--secondary); font-weight: 500; }
-  .result-row.subtotal .value { color: var(--secondary); }
-
-  .result-final { margin-top: 8px; background: var(--secondary); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
-  .result-final .label-block p { font-size: 11px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.8px; }
-  .result-final .label-block span { font-size: 12px; color: rgba(13,67,138,0.7); margin-top: 2px; display: block; }
-  .result-final .price { font-size: 30px; font-weight: 700; color: var(--primary); }
-
-  .btn-calc { margin-top: 4px; width: 100%; padding: 14px; background: var(--secondary); border: none; border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--primary); cursor: pointer; letter-spacing: 0.2px; transition: opacity 0.15s, transform 0.1s; font-family: 'Inter', sans-serif; }
-  .btn-calc:hover { opacity: 0.88; }
-  .btn-calc:active { transform: scale(0.98); }
-
-  .badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(135,207,239,0.18); color: var(--secondary); border: 1px solid rgba(135,207,239,0.3); }
-  .footer-note { text-align: center; font-size: 11px; color: #6B7280; padding-top: 8px; padding-bottom: 4px; }
-
-@media (max-width: 768px){
-
-  .header{
-    padding: 22px 18px;
-    gap: 14px;
-  }
-
-  .logo-topo{
-    width: 58px;
-    height: 58px;
-  }
-
-  .header h1{
-    font-size: 18px;
-    line-height: 1.2;
-  }
-
-  .header p{
-    font-size: 12px;
-  }
-
-  .app-body{
-    padding: 18px 0 32px;
-  }
-
-  .section-body{
-    grid-template-columns: 1fr;
-  }
-
-  .result-final{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .result-final .price{
-    font-size: 42px;
-    align-self: flex-end;
-  }
-
-.historico-item{
-  background:#F8FAFC;
-  border:1px solid #E2E8F0;
-  border-radius:14px;
-  padding:16px;
-}
-
-.historico-item h3{
-  font-size:15px;
-  margin-bottom:10px;
-  color:#0D438A;
-}
-
-.historico-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:12px;
-}
-
-.historico-box{
-  background:white;
-  border-radius:10px;
-  padding:10px;
-  border:1px solid #E2E8F0;
-}
-
-.historico-box span{
-  display:block;
-  font-size:11px;
-  color:#64748B;
-  margin-bottom:4px;
-}
-
-.historico-box strong{
-  font-size:15px;
-  color:#0F172A;
-}
-
-}
-
-
-</style>
+<link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#0D438A">
@@ -251,6 +25,9 @@ body {
   <div>
     <h1>Calculadora de Custos — Impressão 3D</h1>
     <p>Gerencie e calcule o custo real de produção das suas peças</p>
+    <button class="btn-settings" onclick="abrirConfiguracoes()">
+  ⚙ Configurações
+</button>
   </div>
 </div>
 
@@ -265,7 +42,10 @@ body {
     <div class="section-body">
 
       <div class="field" style="grid-column: 1 / -1;">
-        <label>O que você está precificando?</label>
+        <label>
+          O que você está precificando?  
+          <span class="required">*</span>
+        </label>
 
         <div
           class="input-wrap"
@@ -299,19 +79,23 @@ body {
       </div>
     <div class="section-body">
       <div class="field">
-        <label>Preço do rolo de filamento <span class="unit">(R$)</span></label>
+        <label>Preço do rolo de filamento <span class="unit">(R$)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="precoRolo" value="" placeholder="Ex: 120" min="0" step="0.01" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Peso do rolo <span class="unit">(g)</span></label>
+        <label>Peso do rolo <span class="unit">(g)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoRolo" value="" placeholder="Ex: 1000" min="1" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Peso da peça impressa <span class="unit">(g)</span></label>
+        <label>Peso da peça impressa <span class="unit">(g)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoPeca" value="" placeholder="Ex: 85" min="0" step="0.1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Desperdício / AMS <span class="unit">(g)</span></label>
+        <label>Desperdício / AMS <span class="unit">(g)</span>  <span class="optional">(opcional)</span>
+</label>
         <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoAMS" value="" placeholder="Ex: 15" min="0" step="0.1" oninput="calcular()"></div>
         <span class="hint">Torre de purga, flush, etc.</span>
       </div>
@@ -322,23 +106,29 @@ body {
     <div class="section-header"><div class="dot"></div><h2>Eletricidade &amp; Máquina</h2></div>
     <div class="section-body">
       <div class="field">
-        <label>Tempo de impressão <span class="unit">(horas)</span></label>
+        <label>Tempo de impressão <span class="unit">(horas)</span>          <span class="required">*</span>
+        </label>
+
         <div class="input-wrap"><span class="prefix">h</span><input type="number" id="tempoImpressao" value="" placeholder="Ex: 4.5" min="0" step="0.1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Consumo da impressora <span class="unit">(Watts)</span></label>
+        <label>Consumo da impressora <span class="unit">(Watts)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">W</span><input type="number" id="consumoWatts" value="" placeholder="Ex: 150" min="1" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Preço do kWh <span class="unit">(R$)</span></label>
+        <label>Preço do kWh <span class="unit">(R$)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="precoKwh" value="" placeholder="Ex: 0.85" min="0" step="0.01" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Valor da impressora <span class="unit">(R$)</span></label>
+        <label>Valor da impressora <span class="unit">(R$)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorImpressora" value="" placeholder="Ex: 4500" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Vida útil estimada <span class="unit">(horas)</span></label>
+        <label>Vida útil estimada <span class="unit">(horas)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">h</span><input type="number" id="vidaUtil" value="" placeholder="Ex: 500" min="1" step="100" oninput="calcular()"></div>
         <span class="hint">Para cálculo da depreciação por hora</span>
       </div>
@@ -349,19 +139,23 @@ body {
     <div class="section-header"><div class="dot"></div><h2>Pós-processamento &amp; Margem</h2></div>
     <div class="section-body">
       <div class="field">
-        <label>Tempo de acabamento <span class="unit">(minutos)</span></label>
+        <label>Tempo de acabamento <span class="unit">(minutos)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">min</span><input type="number" id="tempoMaoDeObra" value="" placeholder="Ex: 30" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Valor da sua hora <span class="unit">(R$)</span></label>
+        <label>Valor da sua hora <span class="unit">(R$)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorHora" value="" placeholder="Ex: 50" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Taxa de falha / segurança <span class="unit">(%)</span></label>
+        <label>Taxa de falha / segurança <span class="unit">(%)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">%</span><input type="number" id="taxaFalha" value="" placeholder="Ex: 10" min="0" max="100" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Margem de lucro desejada <span class="unit">(%)</span></label>
+        <label>Margem de lucro desejada <span class="unit">(%)</span>          <span class="required">*</span>
+        </label>
         <div class="input-wrap"><span class="prefix">%</span><input type="number" id="margemLucro" value="" placeholder="Ex: 40" min="0" step="1" oninput="calcular()"></div>
       </div>
     </div>
@@ -440,142 +234,72 @@ body {
 
   <p class="footer-note">Os valores são estimativos. Ajuste conforme a sua realidade de operação.</p>
 </div>
+</div>
 
-<script>
-function fmt(v) {
-  if (isNaN(v)) v = 0;
-  return 'R$ ' + v.toFixed(2).replace('.', ',');
-}
-function get(id) { return parseFloat(document.getElementById(id).value) || 0; }
+<div class="modal-overlay" id="modalConfig">
 
-function calcular() {
-  const precoRolo = get('precoRolo'), pesoRolo = get('pesoRolo') || 1;
-  const pesoPeca = get('pesoPeca'), pesoAMS = get('pesoAMS');
-  const custoFilamento = (pesoPeca + pesoAMS) * (precoRolo / pesoRolo);
+  <div class="modal-box">
 
-  const tempoHoras = get('tempoImpressao'), consumoWatts = get('consumoWatts'), precoKwh = get('precoKwh');
-  const custoEnergia = (consumoWatts / 1000) * tempoHoras * precoKwh;
+    <h2>Configuração Inicial</h2>
 
-  const valorImpressora = get('valorImpressora'), vidaUtil = get('vidaUtil') || 1;
-  const custoDepreciacao = (valorImpressora / vidaUtil) * tempoHoras;
+    <p class="modal-text">
+      Configure os custos fixos da sua operação.
+    </p>
 
-  const custoMaoDeObra = (get('tempoMaoDeObra') / 60) * get('valorHora');
+    <div class="modal-grid">
 
-  const custoBase = custoFilamento + custoEnergia + custoDepreciacao + custoMaoDeObra;
-  const taxaFalha = get('taxaFalha');
-  const subtotal = custoBase * (1 + taxaFalha / 100);
-
-  const margemLucro = get('margemLucro');
-  const divisor = 1 - (margemLucro / 100);
-  const precoFinal = divisor > 0 ? subtotal / divisor : subtotal * (1 + margemLucro / 100);
-
-salvarHistorico(
-  precoFinal,
-  custoBase,
-  tempoHoras
-);
-
-document.getElementById('r-filamento').textContent  = fmt(custoFilamento);
-document.getElementById('r-energia').textContent     = fmt(custoEnergia);
-document.getElementById('r-depreciacao').textContent = fmt(custoDepreciacao);
-document.getElementById('r-maodeobra').textContent   = fmt(custoMaoDeObra);
-document.getElementById('r-custobase').textContent   = fmt(custoBase);
-document.getElementById('r-subtotal').textContent    = fmt(subtotal);
-document.getElementById('r-preco-final').textContent = fmt(precoFinal);
-
-document.getElementById('r-lucro-info').textContent =
-  `Lucro de ${margemLucro.toFixed(0)}% aplicado`;
-}
-
-function limparCampos(){
-
-  const campos =
-    document.querySelectorAll('input[type="number"]');
-
-  campos.forEach(campo => {
-    campo.value = '';
-  });
-
-  const descricao =
-    document.getElementById('descricaoPeca');
-
-  if(descricao){
-    descricao.value = '';
-  }
-
-  document.getElementById('r-filamento').textContent  = 'R$ 0,00';
-  document.getElementById('r-energia').textContent     = 'R$ 0,00';
-  document.getElementById('r-depreciacao').textContent = 'R$ 0,00';
-  document.getElementById('r-maodeobra').textContent   = 'R$ 0,00';
-  document.getElementById('r-custobase').textContent   = 'R$ 0,00';
-  document.getElementById('r-subtotal').textContent    = 'R$ 0,00';
-  document.getElementById('r-preco-final').textContent = 'R$ 0,00';
-
-  document.getElementById('r-lucro-info').textContent =
-    'Lucro de 0% aplicado';
-}
-
-function salvarHistorico(precoFinal, custoBase, tempoHoras){
-
-  const lista =
-    document.getElementById('historico-lista');
-
-  if(!lista){
-    return;
-  }
-
-  const descricaoInput =
-    document.getElementById('descricaoPeca');
-
-  const descricao =
-    descricaoInput?.value || 'Peça sem descrição';
-
-  const vazio =
-    lista.querySelector('p');
-
-  if(vazio){
-    vazio.remove();
-  }
-
-  const item =
-    document.createElement('div');
-
-  item.className = 'historico-item';
-
-  item.innerHTML = `
-    <h3>${descricao}</h3>
-
-    <div class="historico-grid">
-
-      <div class="historico-box">
-        <span>Horas totais</span>
-        <strong>${tempoHoras.toFixed(1)}h</strong>
+      <div class="field">
+        <label>Consumo da impressora (Watts)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgConsumoWatts">
+        </div>
       </div>
 
-      <div class="historico-box">
-        <span>Custo base</span>
-        <strong>${fmt(custoBase)}</strong>
+      <div class="field">
+        <label>Preço do kWh (R$)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgPrecoKwh">
+        </div>
       </div>
 
-      <div class="historico-box">
-        <span>Preço sugerido</span>
-        <strong>${fmt(precoFinal)}</strong>
+      <div class="field">
+        <label>Valor da impressora (R$)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgValorImpressora">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Vida útil estimada (horas)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgVidaUtil">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Valor da sua hora (R$)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgValorHora">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Taxa de falha (%)</label>
+        <div class="input-wrap">
+          <input type="number" id="cfgTaxaFalha">
+        </div>
       </div>
 
     </div>
-  `;
 
-  lista.prepend(item);
+    <button class="btn-save-config" onclick="salvarConfiguracoes()">
+      Salvar configurações
+    </button>
 
-  const itens =
-    lista.querySelectorAll('.historico-item');
+  </div>
 
-  if(itens.length > 5){
-    itens[itens.length - 1].remove();
-  }
-}
-
-</script>
 </div>
+
+<script src="app.js"></script>
 </body>
 </html>
