@@ -73,10 +73,35 @@ body {
   color:#1A1A1A;
 }  
 
+.historico-toggle {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+}
+
+.historico-content {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+
+.historico-content.open {
+  display: block;
+}
 
 .input-wrap input::placeholder{
   color: #9AA4B2;
 }
+
 
 .container-app{
   width: 100%;
@@ -122,7 +147,13 @@ body {
   .result-final { margin-top: 8px; background: var(--secondary); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
   .result-final .label-block p { font-size: 11px; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.8px; }
   .result-final .label-block span { font-size: 12px; color: rgba(13,67,138,0.7); margin-top: 2px; display: block; }
-  .result-final .price { font-size: 30px; font-weight: 700; color: var(--primary); }
+  .result-final .price {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
   .btn-calc { margin-top: 4px; width: 100%; padding: 14px; background: var(--secondary); border: none; border-radius: 12px; font-size: 15px; font-weight: 700; color: var(--primary); cursor: pointer; letter-spacing: 0.2px; transition: opacity 0.15s, transform 0.1s; font-family: 'Inter', sans-serif; }
   .btn-calc:hover { opacity: 0.88; }
@@ -167,9 +198,12 @@ body {
   }
 
   .result-final .price{
-    font-size: 42px;
-    align-self: flex-end;
+  font-size: 36px;
+  align-self: flex-end;
+  white-space: nowrap;
   }
+
+}
 
 .historico-item{
   background:#F8FAFC;
@@ -223,30 +257,41 @@ body {
 
 .btn-settings:hover{
   transform:translateY(-1px);
+
 }
-
 .modal-overlay{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
+  position: fixed;
+  inset: 0;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width: 100%;
+  height: 100vh;
 
-  padding:20px;
+  background: rgba(0,0,0,0.6);
 
-  z-index:9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .modal-box{
-  background:white;
-  width:100%;
-  max-width:720px;
-  border-radius:22px;
-  padding:28px;
+  width: 100%;
+  max-width: 720px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-box h2{
@@ -278,4 +323,35 @@ body {
   cursor:pointer;
 }
 
+/* GRID PRINCIPAL */
+.layout-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+  .layout-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+
+    width: 100%;
+  }
+
+  .form-area {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .summary-area {
+    flex: 0 0 360px;
+    position: sticky;
+    top: 20px;
+
+    margin-left: auto; /* 🔥 ESSA LINHA É O QUE GARANTE DIREITA REAL */
+  }
+}
+

@@ -132,7 +132,36 @@ function salvarHistorico(precoFinal, custoBase, tempoHoras){
 }
 
 function abrirConfiguracoes(){
-  document.getElementById('modalConfig').style.display = 'flex';
+
+  const dados =
+    localStorage.getItem('studio14_config');
+
+  if(dados){
+
+    const config =
+      JSON.parse(dados);
+
+    document.getElementById('cfgConsumoWatts').value =
+      config.consumoWatts || '';
+
+    document.getElementById('cfgPrecoKwh').value =
+      config.precoKwh || '';
+
+    document.getElementById('cfgValorImpressora').value =
+      config.valorImpressora || '';
+
+    document.getElementById('cfgVidaUtil').value =
+      config.vidaUtil || '';
+
+    document.getElementById('cfgValorHora').value =
+      config.valorHora || '';
+
+    document.getElementById('cfgTaxaFalha').value =
+      config.taxaFalha || '';
+  }
+
+  document.getElementById('modalConfig').style.display =
+    'flex';
 }
 
 function fecharConfiguracoes(){
@@ -171,6 +200,15 @@ function salvarConfiguracoes(){
   aplicarConfiguracoes();
 
   fecharConfiguracoes();
+}
+
+function toggleHistorico() {
+  const content = document.getElementById('historico-content');
+  const seta = document.getElementById('historico-seta');
+
+  content.classList.toggle('open');
+
+  seta.textContent = content.classList.contains('open') ? '▴' : '▾';
 }
 
 function aplicarConfiguracoes(){
