@@ -1,308 +1,407 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Custos de Impressão 3D</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Custos de Impressão 3D</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
 
-<meta name="theme-color" content="#0D438A">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Studio14 3D">
+    <meta name="theme-color" content="#0D438A" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Studio14 3D" />
 
-<link rel="apple-touch-icon" href="apple-icon.png">
-<link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-icon.png" />
+    <link rel="icon" type="image/png" href="icon.png" />
+  </head>
+  <body>
+    <div class="container-app">
+      <div class="header">
+        <img src="logo.png" class="logo-topo" alt="Studio14 3D" />
+        <div>
+          <h1>Calculadora de Custos — Impressão 3D</h1>
+          <p>Gerencie e calcule o custo real de produção das suas peças</p>
+          <button class="btn-settings" onclick="abrirConfiguracoes()">
+            ⚙ Configurações
+          </button>
+        </div>
+      </div>
 
-</head>
-<body>
-<div class="container-app">
-<div class="header">
-<img src="logo.png" class="logo-topo" alt="Studio14 3D">
-  <div>
-    <h1>Calculadora de Custos — Impressão 3D</h1>
-    <p>Gerencie e calcule o custo real de produção das suas peças</p>
-    <button class="btn-settings" onclick="abrirConfiguracoes()">
-  ⚙ Configurações
-</button>
-  </div>
-</div>
+      <div class="app-body layout-grid">
+        <div class="form-area">
+          <div class="section-card">
+            <div class="section-header">
+              <div class="dot"></div>
+              <h2>Descrição da peça</h2>
+            </div>
 
-<div class="app-body">
+            <div class="section-body">
+              <div class="field" style="grid-column: 1 / -1">
+                <label>
+                  O que você está precificando?
+                  <span class="required">*</span>
+                </label>
 
-    <div class="section-card">
-    <div class="section-header">
-      <div class="dot"></div>
-      <h2>Descrição da peça</h2>
-    </div>
+                <div class="input-wrap" style="width: 100%; display: flex">
+                  <input
+                    type="text"
+                    id="descricaoPeca"
+                    placeholder="Ex: Suporte para controle Xbox"
+                    style="width: 100%; padding: 12px; color: #1a1a1a"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="section-body">
+          <div class="section-card">
+            <div class="section-header">
+              <div class="dot"></div>
+              <h2>Custos de Material</h2>
+            </div>
+            <div class="section-body">
+              <div class="field">
+                <label
+                  >Preço do rolo de filamento <span class="unit">(R$)</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">R$</span
+                  ><input
+                    type="number"
+                    id="precoRolo"
+                    value=""
+                    placeholder="Ex: 120"
+                    min="0"
+                    step="0.01"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label
+                  >Peso do rolo <span class="unit">(g)</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">g</span
+                  ><input
+                    type="number"
+                    id="pesoRolo"
+                    value=""
+                    placeholder="Ex: 1000"
+                    min="1"
+                    step="1"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label
+                  >Peso da peça impressa <span class="unit">(g)</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">g</span
+                  ><input
+                    type="number"
+                    id="pesoPeca"
+                    value=""
+                    placeholder="Ex: 85"
+                    min="0"
+                    step="0.1"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label
+                  >Desperdício / AMS <span class="unit">(g)</span>
+                  <span class="optional">(opcional)</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">g</span
+                  ><input
+                    type="number"
+                    id="pesoAMS"
+                    value=""
+                    placeholder="Ex: 15"
+                    min="0"
+                    step="0.1"
+                    oninput="calcular()"
+                  />
+                </div>
+                <span class="hint">Torre de purga, flush, etc.</span>
+              </div>
+            </div>
+          </div>
 
-      <div class="field" style="grid-column: 1 / -1;">
-        <label>
-          O que você está precificando?  
-          <span class="required">*</span>
-        </label>
+          <div class="section-card">
+            <div class="section-header">
+              <div class="dot"></div>
+              <h2>Eletricidade &amp; Máquina</h2>
+            </div>
 
-        <div
-          class="input-wrap"
-          style="
-            width:100%;
-            display:flex;
-          "
-        >
-          <input
-            type="text"
-            id="descricaoPeca"
-            placeholder="Ex: Suporte para controle Xbox"
-            style="
-              width:100%;
-              padding:12px;
-              color:#1A1A1A;
-            "
-          >
+            <div class="section-body">
+              <div class="field">
+                <label>
+                  Tempo de impressão
+                  <span class="unit">(horas)</span>
+                  <span class="required">*</span>
+                </label>
+
+                <div class="input-wrap">
+                  <span class="prefix">h</span>
+
+                  <input
+                    type="number"
+                    id="tempoImpressao"
+                    value=""
+                    placeholder="Ex: 4.5"
+                    min="0"
+                    step="0.1"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <div class="dot"></div>
+              <h2>Pós-processamento &amp; Margem</h2>
+            </div>
+
+            <div class="section-body">
+              <div class="field">
+                <label
+                  >Tempo de acabamento <span class="unit">(minutos)</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">min</span
+                  ><input
+                    type="number"
+                    id="tempoMaoDeObra"
+                    value=""
+                    placeholder="Ex: 30"
+                    min="0"
+                    step="1"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label
+                  >Margem de lucro desejada <span class="unit">(%)</span>
+                  <span class="required">*</span>
+                </label>
+                <div class="input-wrap">
+                  <span class="prefix">%</span
+                  ><input
+                    type="number"
+                    id="margemLucro"
+                    value=""
+                    placeholder="Ex: 40"
+                    min="0"
+                    step="1"
+                    oninput="calcular()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-      </div>
+        <div class="summary-area">
+          <div class="results-card">
+            <div class="results-header">
+              <h2>Resumo de Custos</h2>
+              <span class="badge">Atualização automática</span>
+            </div>
+            <div class="results-body">
+              <div class="result-row">
+                <span class="label"
+                  ><span class="dot-sm"></span>Filamento (peça + AMS)</span
+                >
+                <span class="value" id="r-filamento">R$ 0,00</span>
+              </div>
+              <div class="result-row">
+                <span class="label"
+                  ><span class="dot-sm"></span>Energia elétrica</span
+                >
+                <span class="value" id="r-energia">R$ 0,00</span>
+              </div>
+              <div class="result-row">
+                <span class="label"
+                  ><span class="dot-sm"></span>Depreciação da máquina</span
+                >
+                <span class="value" id="r-depreciacao">R$ 0,00</span>
+              </div>
+              <div class="result-row">
+                <span class="label"
+                  ><span class="dot-sm"></span>Mão de obra / acabamento</span
+                >
+                <span class="value" id="r-maodeobra">R$ 0,00</span>
+              </div>
+              <hr class="divider" />
+              <div class="result-row">
+                <span class="label"
+                  ><span class="dot-sm"></span>Custo base de produção</span
+                >
+                <span class="value" id="r-custobase">R$ 0,00</span>
+              </div>
+              <div class="result-row subtotal">
+                <span class="label">Subtotal com taxa de falha</span>
+                <span class="value" id="r-subtotal">R$ 0,00</span>
+              </div>
+              <div class="result-final">
+                <div class="label-block">
+                  <p>Preço sugerido de venda</p>
+                  <span id="r-lucro-info">Lucro de 40% aplicado</span>
+                </div>
+                <span class="price" id="r-preco-final">R$ 0,00</span>
+              </div>
+              <button class="btn-calc" onclick="limparCampos()">
+                ↻ Recalcular
+              </button>
+            </div>
+          </div>
+          <div class="section-card" id="historico-card">
+            <button class="historico-toggle" onclick="toggleHistorico()">
+              <span>Histórico recente</span>
+              <span id="historico-seta">▾</span>
+            </button>
 
-    </div>
-  </div>
-  
-  <div class="section-card">
-    <div class="section-header">
-      <div class="dot">
+            <div class="historico-content" id="historico-content">
+              <div
+                class="section-body"
+                id="historico-lista"
+                style="display: flex; flex-direction: column; gap: 12px"
+              >
+                <p style="color: #94a3b8; font-size: 13px">
+                  Nenhum cálculo realizado ainda.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Os valores são estimativos. Ajuste conforme a sua realidade de
+            operação.
+          </p>
         </div>
-        <h2>Custos de Material</h2>
-      </div>
-    <div class="section-body">
-      <div class="field">
-        <label>Preço do rolo de filamento <span class="unit">(R$)</span>          <span class="required">*</span>
-        </label>
-        <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="precoRolo" value="" placeholder="Ex: 120" min="0" step="0.01" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        <label>Peso do rolo <span class="unit">(g)</span>          <span class="required">*</span>
-        </label>
-        <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoRolo" value="" placeholder="Ex: 1000" min="1" step="1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        <label>Peso da peça impressa <span class="unit">(g)</span>          <span class="required">*</span>
-        </label>
-        <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoPeca" value="" placeholder="Ex: 85" min="0" step="0.1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        <label>Desperdício / AMS <span class="unit">(g)</span>  <span class="optional">(opcional)</span>
-</label>
-        <div class="input-wrap"><span class="prefix">g</span><input type="number" id="pesoAMS" value="" placeholder="Ex: 15" min="0" step="0.1" oninput="calcular()"></div>
-        <span class="hint">Torre de purga, flush, etc.</span>
       </div>
     </div>
-  </div>
 
-  <div class="section-card">
-    <div class="section-header"><div class="dot"></div><h2>Eletricidade &amp; Máquina</h2></div>
-    <div class="section-body">
-      <div class="field">
-        <label>Tempo de impressão <span class="unit">(horas)</span>          <span class="required">*</span>
-        </label>
-
-        <div class="input-wrap"><span class="prefix">h</span><input type="number" id="tempoImpressao" value="" placeholder="Ex: 4.5" min="0" step="0.1" oninput="calcular()"></div>
-      </div>
-      
-        <div class="input-wrap"><span class="prefix">W</span><input type="number" id="consumoWatts" value="" placeholder="Ex: 150" min="1" step="1" oninput="calcular()"></div>
-      </div>
-      
-        <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="precoKwh" value="" placeholder="Ex: 0.85" min="0" step="0.01" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-       
-        <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorImpressora" value="" placeholder="Ex: 4500" min="0" step="1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        
-        <div class="input-wrap"><span class="prefix">h</span><input type="number" id="vidaUtil" value="" placeholder="Ex: 500" min="1" step="100" oninput="calcular()"></div>
-        <span class="hint">Para cálculo da depreciação por hora</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-card">
-    <div class="section-header"><div class="dot"></div><h2>Pós-processamento &amp; Margem</h2></div>
-    <div class="section-body">
-      <div class="field">
-        <label>Tempo de acabamento <span class="unit">(minutos)</span>          <span class="required">*</span>
-        </label>
-        <div class="input-wrap"><span class="prefix">min</span><input type="number" id="tempoMaoDeObra" value="" placeholder="Ex: 30" min="0" step="1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        
-        <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorHora" value="" placeholder="Ex: 50" min="0" step="1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-       
-        <div class="input-wrap"><span class="prefix">%</span><input type="number" id="taxaFalha" value="" placeholder="Ex: 10" min="0" max="100" step="1" oninput="calcular()"></div>
-      </div>
-      <div class="field">
-        <label>Margem de lucro desejada <span class="unit">(%)</span>          <span class="required">*</span>
-        </label>
-        <div class="input-wrap"><span class="prefix">%</span><input type="number" id="margemLucro" value="" placeholder="Ex: 40" min="0" step="1" oninput="calcular()"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="results-card">
-    <div class="results-header">
-      <h2>Resumo de Custos</h2>
-      <span class="badge">Atualização automática</span>
-    </div>
-    <div class="results-body">
-      <div class="result-row">
-        <span class="label"><span class="dot-sm"></span>Filamento (peça + AMS)</span>
-        <span class="value" id="r-filamento">R$ 0,00</span>
-      </div>
-      <div class="result-row">
-        <span class="label"><span class="dot-sm"></span>Energia elétrica</span>
-        <span class="value" id="r-energia">R$ 0,00</span>
-      </div>
-      <div class="result-row">
-        <span class="label"><span class="dot-sm"></span>Desgaste / depreciação da máquina</span>
-        <span class="value" id="r-depreciacao">R$ 0,00</span>
-      </div>
-      <div class="result-row">
-        <span class="label"><span class="dot-sm"></span>Mão de obra / acabamento</span>
-        <span class="value" id="r-maodeobra">R$ 0,00</span>
-      </div>
-      <hr class="divider">
-      <div class="result-row">
-        <span class="label"><span class="dot-sm"></span>Custo base de produção</span>
-        <span class="value" id="r-custobase">R$ 0,00</span>
-      </div>
-      <div class="result-row subtotal">
-        <span class="label">Subtotal com taxa de falha</span>
-        <span class="value" id="r-subtotal">R$ 0,00</span>
-      </div>
-      <div class="result-final">
-        <div class="label-block">
-          <p>Preço sugerido de venda</p>
-          <span id="r-lucro-info">Lucro de 40% aplicado</span>
-        </div>
-        <span class="price" id="r-preco-final">R$ 0,00</span>
-      </div>
-      <button class="btn-calc" onclick="limparCampos()">↻ Recalcular</button>
-    </div>
-  </div>
-<div class="section-card" id="historico-card">
-
-  <div class="section-header">
-    <div class="dot"></div>
-    <h2>Histórico recente</h2>
-  </div>
-
-  <div
-    class="section-body"
-    id="historico-lista"
-    style="
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    "
-  >
-
-    <p
+    <div
+      class="modal-overlay"
+      id="modalConfig"
       style="
-        color:#94A3B8;
-        font-size:13px;
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
       "
     >
-      Nenhum cálculo realizado ainda.
-    </p>
+      <div
+        class="modal-box"
+        style="
+          width: 100%;
+          max-width: 700px;
+          background: white;
+          padding: 24px;
+          border-radius: 20px;
+        "
+      >
+        <h2>Configuração Inicial</h2>
 
-  </div>
+        <p class="modal-text">Configure os valores fixos da sua operação.</p>
 
-</div>
+        <div class="modal-grid">
+          <div class="field">
+            <label>Consumo da impressora (Watts)</label>
+            <div class="input-wrap">
+              <span class="prefix">W</span>
+              <input type="number" id="cfgConsumoWatts" placeholder="Ex: 120" />
+            </div>
+          </div>
 
-  <p class="footer-note">Os valores são estimativos. Ajuste conforme a sua realidade de operação.</p>
-</div>
-</div>
+          <div class="field">
+            <label>Preço do kWh (R$)</label>
+            <div class="input-wrap">
+              <span class="prefix">R$</span>
+              <input type="number" id="cfgPrecoKwh" placeholder="Ex: 0,95" />
+            </div>
+          </div>
 
-<div class="modal-overlay" id="modalConfig">
+          <div class="field">
+            <label>Valor da impressora (R$)</label>
+            <div class="input-wrap">
+              <span class="prefix">R$</span>
+              <input
+                type="number"
+                id="cfgValorImpressora"
+                placeholder="Ex: 4500"
+              />
+            </div>
+          </div>
 
-  <div class="modal-box">
+          <div class="field">
+            <label>Vida útil estimada (horas)</label>
+            <div class="input-wrap">
+              <span class="prefix">h</span>
+              <input type="number" id="cfgVidaUtil" placeholder="Ex: 5000" />
+            </div>
+          </div>
 
-    <h2>Configuração Inicial</h2>
+          <div class="field">
+            <label>Valor da sua hora (R$)</label>
+            <div class="input-wrap">
+              <span class="prefix">R$</span>
+              <input type="number" id="cfgValorHora" placeholder="Ex: 30" />
+            </div>
+          </div>
 
-    <p class="modal-text">
-      Configure os custos fixos da sua operação.
-    </p>
-
-    <div class="modal-grid">
-
-      <div class="field">
-        <label>Consumo da impressora (Watts)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgConsumoWatts">
+          <div class="field">
+            <label>Taxa de falha (%)</label>
+            <div class="input-wrap">
+              <span class="prefix">%</span>
+              <input type="number" id="cfgTaxaFalha" placeholder="Ex: 10" />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="field">
-        <label>Preço do kWh (R$)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgPrecoKwh">
-        </div>
+        <button class="btn-save-config" onclick="salvarConfiguracoes()">
+          Salvar configurações
+        </button>
       </div>
-
-      <div class="field">
-        <label>Valor da impressora (R$)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgValorImpressora">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Vida útil estimada (horas)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgVidaUtil">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Valor da sua hora (R$)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgValorHora">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Taxa de falha (%)</label>
-        <div class="input-wrap">
-          <input type="number" id="cfgTaxaFalha">
-        </div>
-      </div>
-
     </div>
 
-    <button class="btn-save-config" onclick="salvarConfiguracoes()">
-      Salvar configurações
-    </button>
+    <div style="display: none">
+      <input type="hidden" id="consumoWatts" />
+      <input type="hidden" id="precoKwh" />
+      <input type="hidden" id="valorImpressora" />
+      <input type="hidden" id="vidaUtil" />
+      <input type="hidden" id="valorHora" />
+      <input type="hidden" id="taxaFalha" />
+    </div>
 
-  </div>
-
-</div>
-
-<div style="display:none;">
-
-  <input type="hidden" id="consumoWatts">
-  <input type="hidden" id="precoKwh">
-  <input type="hidden" id="valorImpressora">
-  <input type="hidden" id="vidaUtil">
-  <input type="hidden" id="valorHora">
-  <input type="hidden" id="taxaFalha">
-
-</div>
-
-<script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
