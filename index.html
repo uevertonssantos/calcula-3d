@@ -111,24 +111,18 @@
 
         <div class="input-wrap"><span class="prefix">h</span><input type="number" id="tempoImpressao" value="" placeholder="Ex: 4.5" min="0" step="0.1" oninput="calcular()"></div>
       </div>
-      <div class="field">
-        <label>Consumo da impressora <span class="unit">(Watts)</span>          <span class="required">*</span>
-        </label>
+      
         <div class="input-wrap"><span class="prefix">W</span><input type="number" id="consumoWatts" value="" placeholder="Ex: 150" min="1" step="1" oninput="calcular()"></div>
       </div>
-      <div class="field">
-        <label>Preço do kWh <span class="unit">(R$)</span>          <span class="required">*</span>
-        </label>
+      
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="precoKwh" value="" placeholder="Ex: 0.85" min="0" step="0.01" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Valor da impressora <span class="unit">(R$)</span>          <span class="required">*</span>
-        </label>
+       
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorImpressora" value="" placeholder="Ex: 4500" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Vida útil estimada <span class="unit">(horas)</span>          <span class="required">*</span>
-        </label>
+        
         <div class="input-wrap"><span class="prefix">h</span><input type="number" id="vidaUtil" value="" placeholder="Ex: 500" min="1" step="100" oninput="calcular()"></div>
         <span class="hint">Para cálculo da depreciação por hora</span>
       </div>
@@ -144,13 +138,11 @@
         <div class="input-wrap"><span class="prefix">min</span><input type="number" id="tempoMaoDeObra" value="" placeholder="Ex: 30" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Valor da sua hora <span class="unit">(R$)</span>          <span class="required">*</span>
-        </label>
+        
         <div class="input-wrap"><span class="prefix">R$</span><input type="number" id="valorHora" value="" placeholder="Ex: 50" min="0" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
-        <label>Taxa de falha / segurança <span class="unit">(%)</span>          <span class="required">*</span>
-        </label>
+       
         <div class="input-wrap"><span class="prefix">%</span><input type="number" id="taxaFalha" value="" placeholder="Ex: 10" min="0" max="100" step="1" oninput="calcular()"></div>
       </div>
       <div class="field">
@@ -297,6 +289,17 @@
     </button>
 
   </div>
+
+</div>
+
+<div style="display:none;">
+
+  <input type="hidden" id="consumoWatts">
+  <input type="hidden" id="precoKwh">
+  <input type="hidden" id="valorImpressora">
+  <input type="hidden" id="vidaUtil">
+  <input type="hidden" id="valorHora">
+  <input type="hidden" id="taxaFalha">
 
 </div>
 
