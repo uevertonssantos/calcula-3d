@@ -1,4 +1,3 @@
-<script>
 function fmt(v) {
   if (isNaN(v)) v = 0;
   return 'R$ ' + v.toFixed(2).replace('.', ',');
@@ -206,9 +205,9 @@ function aplicarConfiguracoes(){
     config.taxaFalha || '';
 }
 
-window.onload = () => {
   aplicarConfiguracoes();
 };
 
-
-</script>
+window.onload = () => {
+  aplicarConfiguracoes();
+};
