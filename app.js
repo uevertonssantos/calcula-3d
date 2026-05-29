@@ -130,6 +130,7 @@ function salvarHistorico(precoFinal, custoBase, tempoHoras){
   if(itens.length > 5){
     itens[itens.length - 1].remove();
   }
+}
 
 function abrirConfiguracoes(){
   document.getElementById('modalConfig').style.display = 'flex';
@@ -209,6 +210,5 @@ window.onload = () => {
   aplicarConfiguracoes();
 };
 
-}
 
 </script>
