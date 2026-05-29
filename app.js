@@ -205,8 +205,6 @@ function aplicarConfiguracoes(){
     config.taxaFalha || '';
 }
 
-  aplicarConfiguracoes();
-};
 
 window.onload = () => {
   aplicarConfiguracoes();
